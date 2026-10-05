@@ -35,10 +35,12 @@ HIGH or CRITICAL vulnerabilities cause the security gate to fail.
 
 The script displays the vulnerability report in table format in the terminal.
 
-It also saves JSON reports:
+It also saves JSON and HTML reports:
 
 reports/sprint2-vulnerable.json
 reports/sprint2-clean.json
+reports/sprint2-vulnerable.html
+reports/sprint2-clean.html
 
 The vulnerable report contains the detected vulnerabilities.
 
