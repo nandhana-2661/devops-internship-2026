@@ -4,7 +4,11 @@ IMAGE_NAME=$1
 DOCKERFILE=$2
 
 echo "======================================"
-echo " Sprint 2 - Trivy Security Scan"
+echo " Sprint 
+
+
+
+2 - Trivy Security Scan"
 echo "======================================"
 
 echo "Building Docker image: $IMAGE_NAME"
@@ -33,6 +37,16 @@ trivy image \
   --format json \
   --output "reports/${IMAGE_NAME}.json" \
   "$IMAGE_NAME"
+echo ""
+echo "Generating HTML report..."
+
+trivy image \
+  --severity HIGH,CRITICAL \
+  --ignore-unfixed \
+  --format template \
+  --template "@/usr/local/share/trivy/templates/html.tpl" \
+  --output "reports/${IMAGE_NAME}.html" \
+  "$IMAGE_NAME"
 
 echo ""
 echo "Applying security gate..."
@@ -53,3 +67,7 @@ fi
 echo ""
 echo "SECURITY GATE PASSED"
 echo "No HIGH/CRITICAL fixed vulnerabilities found."
+
+
+
+

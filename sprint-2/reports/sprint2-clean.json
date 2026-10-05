@@ -3,8 +3,8 @@
   "Trivy": {
     "Version": "0.74.0"
   },
-  "ReportID": "01a10ad6-8526-7b16-b367-4515effa56e5",
-  "CreatedAt": "2026-10-05T06:53:13.382729391Z",
+  "ReportID": "01a10ba1-fa25-7917-9657-532665e295d4",
+  "CreatedAt": "2026-10-05T10:35:27.141599964Z",
   "ArtifactID": "sha256:4c29dd3ba7ea3bcc90f176e36cbb12d414f26b0cde7392c2a88604ea3cf85de2",
   "ArtifactName": "sprint2-clean",
   "ArtifactType": "container_image",
