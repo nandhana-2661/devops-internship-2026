@@ -2,7 +2,7 @@
   "uid": "sprint4-logs",
   "title": "Sprint 4 - Centralized Logs",
   "schemaVersion": 39,
-  "version": 1,
+  "version": 2,
   "refresh": "5s",
   "time": {
     "from": "now-15m",
@@ -11,14 +11,14 @@
   "panels": [
     {
       "id": 1,
-      "title": "Live Application Logs",
+      "title": "All Application Logs",
       "type": "logs",
       "datasource": {
         "type": "loki",
         "uid": "loki"
       },
       "gridPos": {
-        "h": 12,
+        "h": 10,
         "w": 24,
         "x": 0,
         "y": 0
@@ -28,21 +28,6 @@
           "refId": "A",
           "expr": "{container_name=\"web-app\"}",
           "queryType": "range"
-        },
-        {
-          "refId": "B",
-          "expr": "{container_name=\"web-app\", level=\"INFO\"}",
-          "hide": true
-        },
-        {
-          "refId": "C",
-          "expr": "{container_name=\"web-app\", level=\"WARN\"}",
-          "hide": true
-        },
-        {
-          "refId": "D",
-          "expr": "{container_name=\"web-app\", level=\"ERROR\"}",
-          "hide": true
         }
       ],
       "options": {
@@ -53,6 +38,90 @@
         "prettifyLogMessage": false,
         "enableLogDetails": true,
         "dedupStrategy": "none",
+        "sortOrder": "Descending"
+      }
+    },
+    {
+      "id": 2,
+      "title": "INFO Logs",
+      "type": "logs",
+      "datasource": {
+        "type": "loki",
+        "uid": "loki"
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 10
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "{container_name=\"web-app\", level=\"INFO\"}",
+          "queryType": "range"
+        }
+      ],
+      "options": {
+        "showTime": true,
+        "showLabels": true,
+        "wrapLogMessage": true,
+        "sortOrder": "Descending"
+      }
+    },
+    {
+      "id": 3,
+      "title": "WARN Logs",
+      "type": "logs",
+      "datasource": {
+        "type": "loki",
+        "uid": "loki"
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 10
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "{container_name=\"web-app\", level=\"WARN\"}",
+          "queryType": "range"
+        }
+      ],
+      "options": {
+        "showTime": true,
+        "showLabels": true,
+        "wrapLogMessage": true,
+        "sortOrder": "Descending"
+      }
+    },
+    {
+      "id": 4,
+      "title": "ERROR Logs",
+      "type": "logs",
+      "datasource": {
+        "type": "loki",
+        "uid": "loki"
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 24,
+        "x": 0,
+        "y": 18
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "{container_name=\"web-app\", level=\"ERROR\"}",
+          "queryType": "range"
+        }
+      ],
+      "options": {
+        "showTime": true,
+        "showLabels": true,
+        "wrapLogMessage": true,
         "sortOrder": "Descending"
       }
     }
