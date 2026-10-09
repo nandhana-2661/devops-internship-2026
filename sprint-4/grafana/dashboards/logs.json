@@ -1,0 +1,60 @@
+{
+  "uid": "sprint4-logs",
+  "title": "Sprint 4 - Centralized Logs",
+  "schemaVersion": 39,
+  "version": 1,
+  "refresh": "5s",
+  "time": {
+    "from": "now-15m",
+    "to": "now"
+  },
+  "panels": [
+    {
+      "id": 1,
+      "title": "Live Application Logs",
+      "type": "logs",
+      "datasource": {
+        "type": "loki",
+        "uid": "loki"
+      },
+      "gridPos": {
+        "h": 12,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "{container_name=\"web-app\"}",
+          "queryType": "range"
+        },
+        {
+          "refId": "B",
+          "expr": "{container_name=\"web-app\", level=\"INFO\"}",
+          "hide": true
+        },
+        {
+          "refId": "C",
+          "expr": "{container_name=\"web-app\", level=\"WARN\"}",
+          "hide": true
+        },
+        {
+          "refId": "D",
+          "expr": "{container_name=\"web-app\", level=\"ERROR\"}",
+          "hide": true
+        }
+      ],
+      "options": {
+        "showTime": true,
+        "showLabels": true,
+        "showCommonLabels": false,
+        "wrapLogMessage": true,
+        "prettifyLogMessage": false,
+        "enableLogDetails": true,
+        "dedupStrategy": "none",
+        "sortOrder": "Descending"
+      }
+    }
+  ]
+}
