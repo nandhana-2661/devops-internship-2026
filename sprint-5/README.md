@@ -98,4 +98,9 @@ Local terminal screenshots:
 - `screenshots/sprint5-local-fail.png` – Vulnerable scan fails the quality gate.
 - `screenshots/sprint5-local-pass.png` – Clean scan passes the quality gate.
 
-The GitHub Actions run logs provide CI PASS/FAIL evidence.
+GitHub Actions CI screenshots:
+
+- `screenshots/sprint5-ci-fail.png` – CI fails when security vulnerabilities are detected.
+- `screenshots/sprint5-ci-pass.png` – CI passes when no security vulnerabilities are detected.
+
+The GitHub Actions run logs also provide CI PASS/FAIL evidence.
