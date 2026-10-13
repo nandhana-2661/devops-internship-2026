@@ -1,0 +1,33 @@
+rules:
+  - id: hardcoded-password
+    languages: [python]
+    severity: ERROR
+    message: "HIGH: Hardcoded password detected"
+    metadata:
+      security-severity: "8.0"
+    patterns:
+      - pattern: $PASSWORD = "..."
+      - metavariable-regex:
+          metavariable: $PASSWORD
+          regex: (?i).*(password|passwd|pwd|secret).*
+
+  - id: sql-injection
+    languages: [python]
+    severity: ERROR
+    message: "CRITICAL: Potential SQL injection detected"
+    metadata:
+      security-severity: "9.5"
+    patterns:
+      - pattern: $CURSOR.execute($QUERY)
+      - pattern-inside: |
+          $QUERY = "..." + $INPUT + "..."
+          ...
+          $CURSOR.execute($QUERY)
+
+  - id: insecure-deserialization
+    languages: [python]
+    severity: ERROR
+    message: "CRITICAL: Insecure pickle deserialization detected"
+    metadata:
+      security-severity: "9.0"
+    pattern: pickle.loads(...)

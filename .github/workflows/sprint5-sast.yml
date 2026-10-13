@@ -1,0 +1,54 @@
+name: Sprint 5 - Security Scanning
+
+on:
+  push:
+    paths:
+      - 'sprint-5/**'
+      - '.github/workflows/sprint5-sast.yml'
+  workflow_dispatch:
+    inputs:
+      scenario:
+        description: 'Select security test scenario'
+        required: true
+        type: choice
+        options:
+          - clean
+          - vulnerable
+        default: clean
+
+jobs:
+  security-scan:
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: sprint-5
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install security tools
+        run: |
+          python -m pip install semgrep==1.180.0 pip-audit==2.10.1
+
+      - name: Run security scans and quality gate
+        run: |
+          if [ "${{ inputs.scenario }}" = "vulnerable" ]; then
+            cp requirements.vulnerable.txt requirements.txt
+            ./scan.sh samples/vulnerable.py
+          else
+            ./scan.sh samples/clean.py
+          fi
+
+      - name: Upload security reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: sprint5-security-reports
+          path: sprint-5/reports/*.json
