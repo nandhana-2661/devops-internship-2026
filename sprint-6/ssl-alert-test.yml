@@ -1,0 +1,25 @@
+rule_files:
+  - alert.rules.yml
+
+evaluation_interval: 15s
+
+tests:
+  - interval: 15s
+    input_series:
+      - series: 'probe_ssl_earliest_cert_expiry{job="blackbox-ssl",instance="https://example.com"}'
+        values: '2000000+0x9'
+      - series: 'probe_success{job="blackbox-ssl",instance="https://example.com"}'
+        values: '1+0x9'
+
+    alert_rule_test:
+      - eval_time: 2m
+        alertname: SSLCertificateExpiringSoon
+        exp_alerts:
+          - exp_labels:
+              alertname: SSLCertificateExpiringSoon
+              instance: https://example.com
+              job: blackbox-ssl
+              severity: warning
+            exp_annotations:
+              summary: "SSL certificate expiring soon"
+              description: "The SSL certificate for https://example.com will expire within 30 days."

@@ -1,0 +1,33 @@
+groups:
+  - name: sprint6_alerts
+    rules:
+
+      # Alert 1: Endpoint Down
+      - alert: EndpointDown
+        expr: probe_success{job="blackbox-http"} == 0
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "HTTP endpoint is unreachable"
+          description: "The endpoint {{ $labels.instance }} has been unreachable for more than 1 minute."
+
+      # Alert 2: High Response Time
+      - alert: HighResponseTime
+        expr: probe_duration_seconds{job="blackbox-http"} > 2 and on(instance, job) (probe_success{job="blackbox-http"} == 1)
+        for: 1m
+        labels:
+          severity: warning
+        annotations:
+          summary: "HTTP endpoint response is slow"
+          description: "The probe duration for {{ $labels.instance }} has exceeded 2 seconds."
+
+      # Alert 3: SSL Certificate Expiry
+      - alert: SSLCertificateExpiringSoon
+        expr: (probe_ssl_earliest_cert_expiry{job="blackbox-ssl"} - time()) / 86400 < 30 and on(instance, job) (probe_success{job="blackbox-ssl"} == 1)
+        for: 1m
+        labels:
+          severity: warning
+        annotations:
+          summary: "SSL certificate expiring soon"
+          description: "The SSL certificate for {{ $labels.instance }} will expire within 30 days."

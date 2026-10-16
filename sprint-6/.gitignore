@@ -1,0 +1,2 @@
+# Private Alertmanager configuration
+alertmanager.local.yml
