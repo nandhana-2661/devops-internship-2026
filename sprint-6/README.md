@@ -27,7 +27,7 @@ When an alert is triggered, Prometheus sends it to Alertmanager. Alertmanager th
 
 ## 3. How the Project Works
 
-1. Docker Compose starts the four containers.
+1. Docker Compose starts four services: Prometheus, Blackbox Exporter, Alertmanager, and Nginx.
 2. Blackbox Exporter checks the Nginx HTTP endpoint and an external HTTPS endpoint.
 3. Prometheus collects the probe results every 15 seconds.
 4. Prometheus checks whether any alert condition is met.
@@ -83,7 +83,7 @@ Three alerts are configured in `alert.rules.yml`.
 
 ### Alert 1: EndpointDown
 
-**Condition:** The HTTP endpoint is unreachable for 1 minute.
+**Condition:** The HTTP endpoint probe fails continuously for 1 minute.
 
 Expression:
 
