@@ -1,0 +1,78 @@
+{
+  "project": "Sprint 7 - Cloud Security Posture Management",
+  "environment": "LocalStack",
+  "summary": {
+    "total_checks": 7,
+    "passed": 3,
+    "failed": 4
+  },
+  "findings": [
+    {
+      "resource": "sprint7-insecure-bucket",
+      "check": "S3 Storage Exposure",
+      "status": "FAIL",
+      "severity": "HIGH",
+      "issues": [
+        "Public access protection incomplete",
+        "Public ACL permission: READ"
+      ],
+      "remediation": "Enable all S3 public access block settings and remove public ACL permissions."
+    },
+    {
+      "resource": "sprint7-secure-bucket",
+      "check": "S3 Storage Exposure",
+      "status": "PASS",
+      "severity": null,
+      "issues": [],
+      "remediation": "No action required."
+    },
+    {
+      "resource": "default",
+      "resource_id": "sg-39144634361e6887e",
+      "check": "Network Exposure",
+      "status": "PASS",
+      "severity": null,
+      "issues": [],
+      "remediation": "No action required."
+    },
+    {
+      "resource": "sprint7-insecure-sg",
+      "resource_id": "sg-03a5cdee5d05245e9",
+      "check": "Network Exposure",
+      "status": "FAIL",
+      "severity": "CRITICAL",
+      "issues": [
+        "SSH port 22 open to 0.0.0.0/0"
+      ],
+      "remediation": "Restrict sensitive inbound ports to trusted IP addresses."
+    },
+    {
+      "resource": "sprint7-insecure-bucket",
+      "check": "S3 Encryption Configuration",
+      "status": "FAIL",
+      "severity": "HIGH",
+      "issues": [
+        "Explicit encryption configuration missing"
+      ],
+      "remediation": "Configure explicit default bucket encryption."
+    },
+    {
+      "resource": "sprint7-secure-bucket",
+      "check": "S3 Encryption Configuration",
+      "status": "PASS",
+      "severity": null,
+      "issues": [],
+      "remediation": "No action required."
+    },
+    {
+      "resource": "vol-7deb9daf87504db95",
+      "check": "EBS Encryption",
+      "status": "FAIL",
+      "severity": "HIGH",
+      "issues": [
+        "EBS volume encryption disabled"
+      ],
+      "remediation": "Create an encrypted replacement volume using an encrypted snapshot."
+    }
+  ]
+}

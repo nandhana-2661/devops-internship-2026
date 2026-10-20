@@ -1,0 +1,9 @@
+services:
+  localstack:
+    image: localstack/localstack:4.14.0
+    container_name: sprint7-localstack
+    ports:
+      - "4566:4566"
+    environment:
+      - SERVICES=s3,ec2
+      - DEBUG=0
