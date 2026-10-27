@@ -1,0 +1,16 @@
+apiVersion: chaos-mesh.org/v1alpha1
+kind: NetworkChaos
+metadata:
+  name: sprint9-network-delay
+  namespace: sprint-9
+spec:
+  action: delay
+  mode: all
+  selector:
+    namespaces:
+      - sprint-9
+    labelSelectors:
+      app: sprint9-web
+  delay:
+    latency: "150ms"
+  duration: "2m"

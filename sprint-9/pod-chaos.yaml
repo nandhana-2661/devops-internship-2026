@@ -1,0 +1,17 @@
+apiVersion: chaos-mesh.org/v1alpha1
+kind: Schedule
+metadata:
+  name: sprint9-pod-kill
+  namespace: sprint-9
+spec:
+  schedule: "@every 30s"
+  concurrencyPolicy: Forbid
+  type: PodChaos
+  podChaos:
+    action: pod-kill
+    mode: one
+    selector:
+      namespaces:
+        - sprint-9
+      labelSelectors:
+        app: sprint9-web
